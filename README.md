@@ -2,7 +2,9 @@
 
 A **premium, text-based AI chatbot** powered by JavaScript with a **luxurious UI**.  
 
-![Verinox GPT](images/chat-bot.svg)  
+<div align="center" style="background-color: white; padding: 15px; border-radius: 10px;">
+    <img src="images/chat-bot.svg" alt="Verinox GPT Logo" width="200">
+</div>
 
 ## 🌟 Features  
 ✅ **Elegant UI with a professional design**  
