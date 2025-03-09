@@ -223,3 +223,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 });
+
+window.onload = function () {
+    let continueBtn = document.querySelector("button[aria-label='Continue']");
+    if (continueBtn) continueBtn.click();
+};

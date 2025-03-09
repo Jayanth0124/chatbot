@@ -354,3 +354,6 @@ header {
   animation: glowEffect 6s linear infinite;
 }
 
+.puter-modal { 
+    display: none !important; 
+}
