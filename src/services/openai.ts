@@ -1,8 +1,9 @@
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY,
-  dangerouslyAllowBrowser: true
+  baseURL: 'https://openrouter.ai/api/v1',
+  apiKey: import.meta.env.VITE_OPEN_ROUTER_API_KEY,
+  dangerouslyAllowBrowser: true,
 });
 
 export interface ChatMessage {
@@ -10,7 +11,7 @@ export interface ChatMessage {
   content: string;
 }
 
-const SYSTEM_PROMPT = `You are Verinox GPT — an elite AI assistant built for global users, powered by OpenAI's most advanced model. 
+const SYSTEM_PROMPT = `You are Verinox GPT — an elite AI assistant built for global users, powered by OpenRouter.
 You combine the precision of an expert, the clarity of a top educator, and the warmth of a trusted advisor.
 
 Your mission:
@@ -54,20 +55,20 @@ export class OpenAIService {
   ];
 
   /**
-   * Sends a message to the OpenAI API and streams the assistant's reply in real time.
+   * Sends a message to the OpenRouter API and streams the assistant's reply in real time.
    * @param userMessage The message from the user.
    * @returns An async generator that yields text chunks from the assistant.
    */
   async sendMessage(userMessage: string): Promise<AsyncIterable<string>> {
-    if (!import.meta.env.VITE_OPENAI_API_KEY) {
-      throw new Error('OpenAI API key not configured. Please add VITE_OPENAI_API_KEY to your .env file.');
+    if (!import.meta.env.VITE_OPEN_ROUTER_API_KEY) {
+      throw new Error('OpenRouter API key not configured. Please add VITE_OPEN_ROUTER_API_KEY to your .env.local file.');
     }
 
     this.messages.push({ role: 'user', content: userMessage });
 
     try {
       const stream = await openai.chat.completions.create({
-        model: 'gpt-4',
+        model: 'openai/gpt-3.5-turbo', // You can change this to any model supported by OpenRouter
         messages: this.messages,
         stream: true,
         temperature: 0.7,
@@ -92,8 +93,8 @@ export class OpenAIService {
       return generateResponse();
 
     } catch (error) {
-      console.error('OpenAI API Error:', error);
-      throw new Error('Failed to get response from OpenAI. Please check your API key and try again.');
+      console.error('OpenRouter API Error:', error);
+      throw new Error('Failed to get response from OpenRouter. Please check your API key and try again.');
     }
   }
 
